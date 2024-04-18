@@ -14,7 +14,7 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Bienvenido(a)</Text>
+      <Text style={styles.title} >Bienvenido(a)</Text>
       <Button title={"Acceder"} onPress={onAccess}>
         
       </Button>

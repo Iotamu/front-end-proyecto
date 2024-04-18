@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { Link, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { View, Text, StyleSheet } from "react-native";
 import { RootStackParamList } from "../../Router";
@@ -31,7 +31,10 @@ const Login = () => {
 
   return (
     <View style = {styles.container}>
-        <Text style = {styles.title}>Vamos a acceder!</Text>
+        <Text style = {styles.title}>Inicio de sesión</Text>
+        {
+          //TODO link a la pantalla de registro
+        }
         <Input
           label= "Usuario"
           placeholder= "Nombre de usuario"
