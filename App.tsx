@@ -5,14 +5,6 @@ import RouterProvider from './Router';
 
 export default function App() {
   return (
-    /*
-    <View>
-      <Text style={styles.title}>Inicio</Text>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-    */
-   
     <SafeAreaProvider>
       <ThemeProvider>
         
