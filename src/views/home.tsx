@@ -11,14 +11,10 @@ const Home = () => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     const getHealthcheck = async () => {
-      //setLoading(true);
       const res = await healthcheckService();
   
       if (res.status === 200) {
         navigation.navigate('Login');
-      } else {
-        //setLoading(false);
-        //setErrorMessage('Problemas al conectar con el servidor');
       }
     };
 
@@ -43,7 +39,6 @@ const Home = () => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {

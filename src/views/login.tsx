@@ -10,30 +10,36 @@ import { Button, Input } from "react-native-elements";
 import loginService from "../services/login.services";
 
 const loginSchema = Joi.object({
-    user: Joi.string().min(6).max(12),
+    email: Joi.string().min(6).max(12),
     password: Joi.string().min(4).max(8),
 })
 
 const Login = () => {
   const navigation =
       useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const { setUser: setUserStore } = useStore();
-  const [user, setUser] = useState<string>(''); //se supervisan user y setUser
+  const { setEmail: setEmailStore } = useStore();
+  const [email, setEmail] = useState<string>(''); //se supervisan email y setEmail
   const [errorMessageUser, setErrorMessageUser] = useState<string>('')
   const [password, setPassword] = useState<string>(''); //se supervisan password y setPassword
   const [errorMessagePassword, setErrorMessagePassword] = useState<string>('')
 
   useEffect(() => {
-    const errors = loginSchema.validate({user, password})
+    const errors = loginSchema.validate({email, password})
     console.log(errors?.error?.details[0]?.context?.key)
-  }, [user, password])
+  }, [email, password])
 
   const onLogin = async () => {
-    const payload = { user, password };
+    const payload = { email, password };
     const response = await loginService(payload)
-    setUserStore(user);
-    navigation.navigate('Profile');
+    console.log(response.status)
+    if (response.status === 201) {
+      setEmailStore(email);
+      navigation.navigate('Profile');
+    }
   }
+    
+    
+
 
   return (
     <View style = {styles.container}>
@@ -44,7 +50,7 @@ const Login = () => {
         <Input
           label= "Email"
           placeholder= "Email de la cuenta"
-          onChangeText={(value: string) => setUser(value)}
+          onChangeText={(value: string) => setEmail(value)}
         ></Input>
         <Input
           secureTextEntry

@@ -2,10 +2,13 @@ import axios from 'axios';
 
 const healthcheckService = async () => {
   try {
-    const url = "http://192.168.1.98:3000/api/v1/users";
+    const url = "http://192.168.1.98:3000/api/v1/";
     //Usar 10.0.0.2 si falla
 
     const response = await axios.get(url, { timeout: 5000 });
+    //codigo de prueba de login //const response = await axios.post(`${url}auth/login`, {"email":"fernand_u@live.cl","password":"Test1234"}); 
+
+    console.log(response)
     return response;
   } catch (e: unknown) {
     const error = (e as Record<string, Record<string, unknown>>);
