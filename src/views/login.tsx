@@ -1,90 +1,106 @@
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Input, Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { View, Text, StyleSheet } from "react-native";
-import { RootStackParamList } from "../../Router";
-//import 'text-encoding-polyfill';
 import Joi from "joi";
 import useStore from "../stores/useStore";
-import { useEffect, useState } from "react";
-import { Button, Input } from "react-native-elements";
 import loginService from "../services/login.services";
+import { RootStackParamList } from "../../Router";
+import { GradientButton } from "../component/gradient";
 
 const loginSchema = Joi.object({
-    email: Joi.string().min(6).max(12),
-    password: Joi.string().min(4).max(8),
-})
+  email: Joi.string().min(6).max(30),
+  password: Joi.string().min(8).max(20),
+});
 
 const Login = () => {
-  const navigation =
-      useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { setEmail: setEmailStore } = useStore();
-  const [email, setEmail] = useState<string>(''); //se supervisan email y setEmail
-  const [errorMessageUser, setErrorMessageUser] = useState<string>('')
-  const [password, setPassword] = useState<string>(''); //se supervisan password y setPassword
-  const [errorMessagePassword, setErrorMessagePassword] = useState<string>('')
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [errorMessageUser, setErrorMessageUser] = useState<string>("");
+  const [errorMessagePassword, setErrorMessagePassword] = useState<string>("");
 
   useEffect(() => {
-    const errors = loginSchema.validate({email, password})
-    console.log(errors?.error?.details[0]?.context?.key)
-  }, [email, password])
+    const errors = loginSchema.validate({ email, password });
+    if (errors.error) {
+      if (errors.error.details[0].context?.key === "email") {
+        setErrorMessageUser(errors.error.details[0].message);
+      } else if (errors.error.details[0].context?.key === "password") {
+        setErrorMessagePassword(errors.error.details[0].message);
+      }
+    } else {
+      setErrorMessageUser("");
+      setErrorMessagePassword("");
+    }
+  }, [email, password]);
 
   const onLogin = async () => {
     const payload = { email, password };
-    const response = await loginService(payload)
-    console.log(response.status)
+    const response = await loginService(payload);
     if (response.status === 201) {
       setEmailStore(email);
-      navigation.navigate('Profile');
+      navigation.navigate("Profile");
     }
-  }
-    
-    
+  };
 
+  const onPressForgotPassword = () => {
+    navigation.navigate("RequestPassword");
+  };
 
   return (
-    <View style = {styles.container}>
-        <Text style = {styles.title}>Inicio de sesión</Text>
-        {
-          //TODO link a la pantalla de registro
-        }
+    <View style={styles.container}>
+      <Text style={styles.title}>Inicio de sesión</Text>
+      <View style={styles.inputContainer}>
         <Input
-          label= "Email"
-          placeholder= "Email de la cuenta"
+          label="Email"
+          placeholder="Email de la cuenta"
           onChangeText={(value: string) => setEmail(value)}
-        ></Input>
+          errorMessage={errorMessageUser}
+        />
         <Input
           secureTextEntry
-          label= "Contraseña"
+          label="Contraseña"
           placeholder="••••••"
           onChangeText={(value: string) => setPassword(value)}
-        ></Input>
-        <Button style = {styles.button}
-          title="Login"
-          onPress={onLogin}
-        ></Button>
+          errorMessage={errorMessagePassword}
+        />
+      </View>
+      <GradientButton onPress={onLogin} text="Login" style={styles.button} />
+      <TouchableOpacity onPress={onPressForgotPassword}>
+        <Text style={styles.forgot}>Recuperar contraseña</Text>
+      </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: 'white',
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingHorizontal: '10%',
-      paddingVertical: '5%',
-    },
-    title: {
-      fontSize: 20,
-      fontWeight: 'bold',
-    },
-    button: {
-      paddingVertical: 12,
-      paddingHorizontal: 32,
-      borderRadius: 4,
-      elevation: 3,
-    }
-  });
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: "10%",
+    paddingVertical: "5%",
+  },
+  title: {
+    fontSize: 40,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+    color: "#9900ef",
+  },
+  inputContainer: {
+    width: "100%",
+  },
+  button: {
+    marginTop: 20,
+  },
+  forgot: {
+    fontSize: 18,
+    color: "blue",
+  },
+});
 
 export default Login;

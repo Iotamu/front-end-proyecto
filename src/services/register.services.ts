@@ -1,53 +1,42 @@
-import axios from "axios"
+import axios, { AxiosError } from 'axios';
 
 export type RegisterServiceResponse = {
-    success: boolean
-    data?: string
-    error?: string
-}
+  success: boolean;
+  data?: string;
+  error?: string;
+};
 
-const registerService = async (data: string): Promise<RegisterServiceResponse> => {
-    console.log("llamado al servicio de registro")
-    /*
-    let config = {
-        method: 'post',
-        maxBodyLenght: Infinity,
-        url: 'localhost:3000/api/v1/auth/register',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        data : data
+const registerService = async (
+  data: Record<string, string>
+): Promise<RegisterServiceResponse> => {
+  try {
+    const endpoint: string = "http://192.168.1.92:3000/api/v1/auth/register";
+
+    const response = await axios.post(endpoint, data);  // realiza solicitud post 
+    const responseData = response.data;         // data de la solicitud
+
+    return {
+      success: true,
+      data: responseData?.message || "",
     };
-    
-    try {
-        const response = await axios.request(config)
-        console.log(JSON.stringify(response.data))
-    } catch (error) {
-        console.log(error)
-    }
-    */
-    try {
-        const endpoint: string = `localhost:3000/api/v1/auth/register/`
-        return {
-            success: true,
-            data: (await axios.post(endpoint, data))?.data?.message,
-        }
-    } catch (e: unknown) {
-        let error = "Error al registrar"
-        console.log(error);
-        switch (
-            (e as Record<string,Record<string,Record<string, unknown>>>)?.response?.data?.message
-        ) {
-            case 'User already exists':
-                error = 'El email ya está en uso'
-                console.log(error);
-                break
-        }
-        return {
-            success: false,
-            error
-        }
-    }
-}
+  } catch (error: unknown) {      // Revisar cualquier error
+    let errorMessage = 'Ha ocurrido un error en el servidor';
 
-export default registerService
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;    
+      console.log("axiosError.response.data:", axiosError.response?.data);
+      errorMessage = (axiosError.response?.data as any)?.message || 'Ha ocurrido un error desconocido';
+
+      //revisar entrada duplicada
+      switch ((axiosError.response?.data as any)?.message) {
+        case 'Entrada duplicada':
+          errorMessage = 'El email ya está en uso';
+          break;
+      }
+    }
+
+    return { success: false, error: errorMessage };
+  }
+};
+
+export default registerService;
