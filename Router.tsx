@@ -7,6 +7,7 @@ import Profile from "./src/views/profile";
 import Register from "./src/views/register";
 import ResetPassword from "./src/views/resetPassword";
 import RequestPassword from "./src/views/requestPassword";
+import RegisterSchedule from './src/views/registerSchedule';
 
 
 export type RootStackParamList = {
@@ -17,6 +18,7 @@ export type RootStackParamList = {
     Profile: Record<string, string> | undefined;
     RequestPassword: Record<string, string> | undefined;
     ResetPassword: Record<string, string> | undefined;
+    RegisterSchedule: Record<string, string> | undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -65,7 +67,12 @@ const RouterProvider = () => {
                     name="ResetPassword"
                     component={ResetPassword}
                 ></Stack.Screen>
-                
+                <Stack.Screen
+                    options={{ headerShown: true }}
+                    name="RegisterSchedule"
+                    component={RegisterSchedule}
+                ></Stack.Screen>
+
             </Stack.Navigator>
         </NavigationContainer>
     )

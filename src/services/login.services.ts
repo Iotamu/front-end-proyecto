@@ -1,10 +1,27 @@
 import axios, { AxiosError } from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import useStore from "../stores/useStore";
 
 const loginService = async (payload: {email: string; password: string}) => {
   const url = `http://${process.env.EXPO_PUBLIC_MS_USER_URL}api/v1/auth/login`
   try {
     const response = await axios.post(url,payload)
+    console.log("response")
+    console.log(response.data)
+    const user = response.data.payload;
+    console.log("user name");
+    console.log(user.name);
+    //const { setName: setNameStore,setLastName: setLastNameStore, setUserId: setUserIdStore } = useStore();
+    //setNameStore(user.name);
+    //setLastNameStore(user.lastName);
+    //setUserIdStore(user.userId);
+    //setRoleStore(user.role);
+
+    await AsyncStorage.setItem('token', response.data.token ); 
+    console.log('save token storage')
+
     console.log(JSON.stringify(response))
+
     return response
   } catch (error: unknown) {
     let errorMessage = 'Ha ocurrido un error en el servicio';

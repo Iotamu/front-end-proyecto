@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 const resetService = async (payload: {email: string}) => {
     try {
         console.log(payload)
-        const url = "http://192.168.1.92:3000/api/v1/auth/reset"
+        const url = `http://${process.env.EXPO_PUBLIC_MS_USER_URL}api/v1/auth/reset`
         const response = await axios.patch(`${url}`, payload);
         console.log(response.status)
         return response//?.status === 201 ? response?.data : {data: undefined}

@@ -10,7 +10,7 @@ const registerService = async (
   data: Record<string, string>
 ): Promise<RegisterServiceResponse> => {
   try {
-    const endpoint: string = "http://192.168.1.92:3000/api/v1/auth/register";
+    const endpoint: string = "http://192.168.0.110:3000/api/v1/auth/register";
 
     const response = await axios.post(endpoint, data);  // realiza solicitud post 
     const responseData = response.data;         // data de la solicitud
