@@ -8,6 +8,7 @@ import useStore from "../stores/useStore";
 import loginService from "../services/login.services";
 import { RootStackParamList } from "../../Router";
 import { GradientButton } from "../component/gradient";
+import styles from "./styles";
 
 const loginSchema = Joi.object({
   email: Joi.string().min(6).max(30),
@@ -75,32 +76,5 @@ const Login = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: "10%",
-    paddingVertical: "5%",
-  },
-  title: {
-    fontSize: 40,
-    fontWeight: "bold",
-    marginBottom: 20,
-    textAlign: "center",
-    color: "#9900ef",
-  },
-  inputContainer: {
-    width: "100%",
-  },
-  button: {
-    marginTop: 20,
-  },
-  forgot: {
-    fontSize: 18,
-    color: "blue",
-  },
-});
 
 export default Login;

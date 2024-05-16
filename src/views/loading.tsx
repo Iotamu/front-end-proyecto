@@ -1,14 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../Router';
+import healthcheckService from '../services/healthcheck.services';
+import styles from './styles';
 
 const Loading = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [isVisible, setIsVisible] = useState(true);
+
+  const getHealthcheck = async () => {
+    const response = await healthcheckService();
+
+    if (response.status === 200) {
+      navigation.navigate('Home');
+    }
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false);
+      getHealthcheck()
     }, 4000); //4 segundos
     return () => clearTimeout(timer);
+    
   }, []);
 
   return (
@@ -17,13 +33,5 @@ const Loading = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default Loading;

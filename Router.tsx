@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Loading from "./src/views/loading";
 import Home from "./src/views/home";
 import Login from "./src/views/login";
 import Profile from "./src/views/profile";
@@ -9,6 +10,7 @@ import RequestPassword from "./src/views/requestPassword";
 
 
 export type RootStackParamList = {
+    Loading: Record<string, string> | undefined;
     Home: Record<string, string> | undefined;
     Register: Record<string, string> | undefined;
     Login: Record<string, string> | undefined;
@@ -22,8 +24,14 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const RouterProvider = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Home">
+            <Stack.Navigator initialRouteName="Loading">
                 
+                <Stack.Screen
+                    options={{ headerShown: true }}
+                    name="Loading"
+                    component={Loading}
+                ></Stack.Screen>
+
                 <Stack.Screen
                     options={{ headerShown: true }}
                     name="Home"

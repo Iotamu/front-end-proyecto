@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { GradientButton } from '../component/gradient'; 
 import { RootStackParamList } from '../../Router';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import styles from './styles';
 
 const Home = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -37,47 +38,5 @@ const Home = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
-  },
-  content: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-    marginTop: 200,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginBottom: 40,
-    textAlign: 'center',
-    color: '#9900ef',
-  },
-  button: {
-    paddingVertical: 20,
-    paddingHorizontal: 50,
-    borderRadius: 10,
-    marginBottom: 20,
-    width: '80%',
-  },
-  buttonText: {
-    color: '#8a2be2',
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  registerButton: {
-    backgroundColor: '#fff',
-    borderWidth: 2,
-    borderColor: '#9900ef',
-  },
-});
 
 export default Home;

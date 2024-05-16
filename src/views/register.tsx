@@ -7,6 +7,7 @@ import { RootStackParamList } from "../../Router";
 import registerService, { RegisterServiceResponse } from "../services/register.services";
 import { validateRegister } from "../validation/validateRegister";
 import { GradientButton } from "../component/gradient";
+import styles from "./styles";
 
 type Form = {
   name: string;
@@ -88,25 +89,5 @@ const Register = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: "10%",
-    paddingVertical: "5%",
-  },
-  title: {
-    fontSize: 40,
-    fontWeight: "bold",
-    marginBottom: 20,
-    textAlign: "center",
-    color: "#9900ef",
-  },
-  button: {
-    marginTop: 20,
-  },
-});
 
 export default Register;

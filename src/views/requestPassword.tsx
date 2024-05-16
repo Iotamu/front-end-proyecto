@@ -7,6 +7,7 @@ import requestService from '../services/request.services';
 import Loading from './loading';
 import { RootStackParamList } from '@/Router';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import styles from './styles';
 
 
 const RequestPassword = () => {
@@ -53,32 +54,5 @@ const RequestPassword = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: "10%",
-    paddingVertical: "5%",
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: "bold",
-    marginBottom: 20,
-    textAlign: "center",
-    color: "#9900ef",
-  },
-  inputContainer: {
-    width: '100%',
-    marginBottom: 20,
-  },
-  input: {
-    fontSize: 16,
-  },
-  button: {
-    marginTop: 20,
-  },
-});
 
 export default RequestPassword;

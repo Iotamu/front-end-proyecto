@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import useStore from '../stores/useStore';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from "../../Router";
+import styles from './styles';
 
 
 const Profile = () => {
@@ -33,28 +34,5 @@ const Profile = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: '10%',
-    paddingVertical: '5%',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    paddingHorizontal: '10%',
-    paddingVertical: '5%',
-  },
-  button: {
-    marginTop: 20,
-  },
-  forgot: {
-    fontSize: 18,
-    color: 'blue',
-  },
-});
 
 export default Profile;
