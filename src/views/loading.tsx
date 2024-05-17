@@ -19,9 +19,9 @@ const Loading = () => {
   };
 
   useEffect(() => {
+    getHealthcheck()
     const timer = setTimeout(() => {
       setIsVisible(false);
-      getHealthcheck()
     }, 4000); //4 segundos
     return () => clearTimeout(timer);
     

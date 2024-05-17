@@ -11,8 +11,8 @@ import { GradientButton } from "../component/gradient";
 import styles from "./styles";
 
 const loginSchema = Joi.object({
-  email: Joi.string().min(6).max(30),
-  password: Joi.string().min(8).max(20),
+  email: Joi.string().email({ tlds: { allow: false } }),
+  password: Joi.string(),
 });
 
 const Login = () => {
@@ -28,8 +28,13 @@ const Login = () => {
     if (errors.error) {
       if (errors.error.details[0].context?.key === "email") {
         setErrorMessageUser(errors.error.details[0].message);
-      } else if (errors.error.details[0].context?.key === "password") {
+      } else {
+        setErrorMessageUser("");
+      }
+      if (errors.error.details[0].context?.key === "password") {
         setErrorMessagePassword(errors.error.details[0].message);
+      } else {
+        setErrorMessagePassword("");
       }
     } else {
       setErrorMessageUser("");
@@ -42,7 +47,7 @@ const Login = () => {
     const response = await loginService(payload);
     if (response.status === 201) {
       setEmailStore(email);
-      navigation.navigate("Profile");
+      navigation.navigate("Profile",);
     }
   };
 

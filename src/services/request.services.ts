@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 const requestService = async (payload: {email: string}) => {
     try {
         console.log(payload)
-        const url = "http://192.168.1.92:3000/api/v1/auth/request"
+        const url = `http://${process.env.EXPO_PUBLIC_MS_USER_URL}api/v1/auth/request`
         const response = await axios.patch(`${url}`, payload);
         console.log(response.status)
         return response//?.status === 201 ? response?.data : {data: undefined}
@@ -14,7 +14,7 @@ const requestService = async (payload: {email: string}) => {
             console.log("axiosError.response.data:", axiosError.response?.data);
             errorMessage = (axiosError.response?.data as any)?.message || 'Ha ocurrido un error desconocido';
       
-        console.error(errorMessage);    //imprimir error en terminal
+        console.error(errorMessage);  //imprimir error en terminal
         }
         return { status: 500 }
     }
