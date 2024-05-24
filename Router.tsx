@@ -35,7 +35,7 @@ const RouterProvider = () => {
                 ></Stack.Screen>
 
                 <Stack.Screen
-                    options={{ headerShown: true }}
+                    options={{ headerShown: false }}
                     name="Home"
                     component={Home}
                 ></Stack.Screen>

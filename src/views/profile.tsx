@@ -10,8 +10,13 @@ import registerScheduleService from '../services/registerSchedule.services';
 
 
 const Profile = () => {
-  const { name, lastName, userId, email, role } = useStore();
+  const { name, userId, email, role } = useStore();
+  let isAdmin = Boolean(false)
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  if(role == "user"){//CAMBIAR CUANDO SE IMPLEMENTE EL ADMIN
+    isAdmin = true
+  }
 
   const onPressChangePassword = () => {if (navigation) {
       navigation.navigate('ResetPassword');
@@ -20,19 +25,23 @@ const Profile = () => {
 
   const onPressRegisterSchedule = async () => {
     const token = await getToken();       
-    console.log(token)
-    try {
-      const response = await registerScheduleService(5, '2024-05-17', '09:00');
-      if (response.status === 201) {
-        console.log('registro exitoso');
-        navigation.navigate('RegisterSchedule');
-      } else {
-        console.log('Error en la solicitud');
-      }
-    } catch (error) {
-      console.error('Error :', error);
-    } 
-  };
+    const fecha = new Date().toISOString().split('T')[0];
+    const hora= new Date().toISOString().split('T')[1].split('.')[0];
+        try {
+          if(userId!=null){
+            const response = await registerScheduleService(userId, fecha, hora);
+              if (response.status === 201) {
+                 console.log('registro exitoso');
+                 navigation.navigate('RegisterSchedule');
+            } else {
+                console.log('Error en la solicitud');
+            }
+          }
+        } catch (error) {
+              console.error('Error :', error);
+      } 
+    }
+        
 
   return (
     <View style={styles.container}>
@@ -40,7 +49,7 @@ const Profile = () => {
         Accediste!
       </Text>
       <Text style={styles.title}>
-        Bienvenido {name} {lastName}
+        Bienvenido {role} {name} 
       </Text>
       <View style={styles.title}>
         <TouchableOpacity onPress={onPressChangePassword}>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Input, Button } from "react-native-elements";
+import { View, Text, TouchableOpacity } from "react-native";
+import { Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import Joi from "joi";
@@ -17,7 +17,10 @@ const loginSchema = Joi.object({
 
 const Login = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const { setUserId: setUserIdStore } = useStore()
+  const { setName: setNameStore } = useStore()
   const { setEmail: setEmailStore } = useStore();
+  const { setRole: setRoleStore } = useStore()
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessageUser, setErrorMessageUser] = useState<string>("");
@@ -46,8 +49,11 @@ const Login = () => {
     const payload = { email, password };
     const response = await loginService(payload);
     if (response.status === 201) {
-      setEmailStore(email);
-      navigation.navigate("Profile",);
+      setUserIdStore(response.data.payload.userId)
+      setNameStore(response.data.payload.name)
+      setEmailStore(response.data.payload.email)
+      setRoleStore(response.data.payload.role)
+      navigation.navigate("Profile");
     }
   };
 

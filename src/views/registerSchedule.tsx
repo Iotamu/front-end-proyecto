@@ -12,10 +12,10 @@ const RegisterSchedule = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>
-                Accediste!
+                Operación exitosa!
             </Text>
             <Text style={styles.title}>
-                Registraste un horario
+                Registraste tu horario
             </Text>
         </View>
     )

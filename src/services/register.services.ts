@@ -6,19 +6,19 @@ export type RegisterServiceResponse = {
   error?: string;
 };
 
-const registerService = async (
-  data: Record<string, string>
-): Promise<RegisterServiceResponse> => {
+//const registerService = async (data: Record<string, string>): Promise<RegisterServiceResponse> => {
+const registerService = async (payload: {name: string, lastName:string, email:string,password:string}) => {
+  const url = `http://${process.env.EXPO_PUBLIC_MS_USER_URL}api/v1/auth/register`
   try {
-    const endpoint: string = `http://${process.env.EXPO_PUBLIC_MS_USER_URL}api/v1/auth/register`;
-
-    const response = await axios.post(endpoint, data);  // realiza solicitud post 
-    const responseData = response.data;         // data de la solicitud
-
-    return {
+    //const endpoint: string = `http://${process.env.EXPO_PUBLIC_MS_USER_URL}api/v1/auth/register`;
+    //const response = await axios.post(endpoint, data);  // realiza solicitud post 
+    //const responseData = response.data;         // data de la solicitud
+    const response = await axios.post(url, payload)
+    return response
+    /*return {
       success: true,
       data: responseData?.message || "",
-    };
+    };*/
   } catch (error: unknown) {      // Revisar cualquier error
     let errorMessage = 'Ha ocurrido un error en el servidor';
 
@@ -35,7 +35,7 @@ const registerService = async (
       }
     }
 
-    return { success: false, error: errorMessage };
+    return { data: null, status: 400, error: errorMessage };
   }
 };
 

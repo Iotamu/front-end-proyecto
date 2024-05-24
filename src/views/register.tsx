@@ -1,11 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useState, useEffect } from "react";
-import { Alert, StyleSheet, Text, View } from "react-native";
-import { Button, Input } from "react-native-elements";
+import { Text, View } from "react-native";
+import { Input } from "react-native-elements";
 import { RootStackParamList } from "../../Router";
-import registerService, { RegisterServiceResponse } from "../services/register.services";
-import { validateRegister } from "../validation/validateRegister";
+import registerService from "../services/register.services";
 import { GradientButton } from "../component/gradient";
 import styles from "./styles";
 import Joi from "joi";
@@ -34,6 +33,10 @@ const registerSchema = Joi.object({
 const Register = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [data, setData] = useState<Form>(FormSheet);
+  const [name, setName] = useState<string>("")
+  const [lastName, setLastName] = useState<string>("")
+  const [email, setEmail] = useState<string>("")
+  const [password, setPassword] = useState<string>("")
   const [valid, setValid] = useState<Boolean>(false)
   const [errorMessageName, setErrorMessageName] = useState<string>("")
   const [errorMessageLastName, setErrorMessageLastName] = useState<string>("")
@@ -41,7 +44,7 @@ const Register = () => {
   const [errorMessagePassword, setErrorMessagePassword] = useState<string>("")
 
   useEffect(() => {
-    const errors = registerSchema.validate({data})
+    const errors = registerSchema.validate({name, lastName, email, password})
     if (errors.error) {
       if (errors.error.details[0].context?.key === "name"){
         setErrorMessageName(errors.error.details[0].message)
@@ -74,7 +77,7 @@ const Register = () => {
       setErrorMessageEmail("")
       setErrorMessagePassword("")
     }
-  },[data])
+  },[name, lastName, email, password])
 
   const setValue = (key: keyof Form, value: string) => {
     setData((prevState) => ({
@@ -102,10 +105,17 @@ const Register = () => {
     }
     */
     if(valid){
-      const response = await registerService(data)
-      if(response.success){
-        
+      const payload = {name, lastName, email, password} 
+      const response = await registerService(payload)
+      if(response.status === 201){
+        console.log("Registro exitoso, nuevo usuario agregado")
+        navigation.navigate("Login");
+      }else{
+        console.log("Error en el registro:")
+        console.log(JSON.stringify(response.data.message))
       }
+    }else{
+      console.log("No es válido")
     }
   };
 
@@ -115,27 +125,36 @@ const Register = () => {
       <Input
         label="Nombre"
         placeholder="Tu nombre"
-        value={data.name}
-        onChangeText={(text) => setValue("name", text)}
+        /*value={data.name}
+        onChangeText={(text) => setValue("name", text)}*/
+        onChangeText={(value: string) => setName(value)}
+        errorMessage={errorMessageName}
+        
       />
       <Input
         label="Apellido"
         placeholder="Tu apellido"
-        value={data.lastName}
-        onChangeText={(text) => setValue("lastName", text)}
+        /*value={data.lastName}
+        onChangeText={(text) => setValue("lastName", text)}*/
+        onChangeText={(value: string) => setLastName(value)}
+        errorMessage={errorMessageLastName}
       />
       <Input
         label="Email"
         placeholder="mail@ejemplo.com"
-        value={data.email}
-        onChangeText={(text) => setValue("email", text)}
+        /*value={data.email}
+        onChangeText={(text) => setValue("email", text)}*/
+        onChangeText={(value: string) => setEmail(value)}
+        errorMessage={errorMessageEmail}
       />
       <Input
         secureTextEntry
         label="Contraseña"
-        placeholder="••••••"
-        value={data.password}
-        onChangeText={(text) => setValue("password", text)}
+        placeholder="••••••••"
+        /*value={data.password}
+        onChangeText={(text) => setValue("password", text)}*/
+        onChangeText={(value: string) => setPassword(value)}
+        errorMessage={errorMessagePassword}
       />
       <GradientButton
         onPress={onClickRegisterButton}

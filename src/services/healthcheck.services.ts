@@ -4,10 +4,8 @@ const healthcheckService = async () => {
   console.log("iniciando healthcheck")
   try {
     const url = `http://${process.env.EXPO_PUBLIC_MS_USER_URL}api/v1/users/findall`; //para usar .env
-    console.log(url)
     const response = await axios.get(url, { timeout: 5000 });
-    console.log(response)
-    
+    console.log(response.statusText)
     return response;
   } catch (e: unknown) {
     const error = (e as Record<string, Record<string, unknown>>);
