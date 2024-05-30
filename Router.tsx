@@ -9,6 +9,7 @@ import ResetPassword from "./src/views/resetPassword";
 import RequestPassword from "./src/views/requestPassword";
 import RegisterSchedule from "./src/views/registerSchedule";
 import WeekOverview from "./src/views/weekOverview";
+import ChangeInfoUser from "./src/views/changeInfoUser";
 
 
 export type RootStackParamList = {
@@ -21,14 +22,16 @@ export type RootStackParamList = {
     ResetPassword: Record<string, string> | undefined;
     RegisterSchedule: Record<string, string> | undefined;
     WeekOverview: Record<string, string> | undefined;
+    ChangeInfoUser: Record<string, string> | undefined;
 };
+
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RouterProvider = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Loading">
+            <Stack.Navigator initialRouteName="Home">
                 
                 <Stack.Screen
                     options={{ headerShown: true }}
@@ -82,6 +85,12 @@ const RouterProvider = () => {
                     options={{ headerShown: true }}
                     name="WeekOverview"
                     component={WeekOverview}
+                ></Stack.Screen>
+                
+                <Stack.Screen
+                    options={{ headerShown: true }}
+                    name="ChangeInfoUser"
+                    component={ChangeInfoUser}
                 ></Stack.Screen>
 
             </Stack.Navigator>
