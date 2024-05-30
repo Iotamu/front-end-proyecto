@@ -23,6 +23,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#9900ef',
   },
+  text: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: 'blue'
+  }
+  ,
   button: {
     paddingVertical: 20,
     paddingHorizontal: 50,
@@ -43,6 +49,7 @@ const styles = StyleSheet.create({
     borderColor: '#9900ef',
   },
   backgroundImage: {
+    alignSelf: 'center',
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',

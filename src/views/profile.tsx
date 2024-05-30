@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import useStore from '../stores/useStore';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -41,12 +41,15 @@ const Profile = () => {
               console.error('Error :', error);
       } 
     }
-        
+
+  const onPressWeekOverview = () =>{
+    navigation.navigate('WeekOverview')
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        Accediste!
+        Perfil
       </Text>
       <Text style={styles.title}>
         Bienvenido {role} {name} 
@@ -59,6 +62,11 @@ const Profile = () => {
       <View style={styles.title}>
         <TouchableOpacity onPress={onPressRegisterSchedule}>
           <Text style={styles.forgot}>Registrar horario</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.title}>
+        <TouchableOpacity onPress={onPressWeekOverview}>
+          <Text style={styles.forgot}>Revisar Semana</Text>
         </TouchableOpacity>
       </View>
     </View>
