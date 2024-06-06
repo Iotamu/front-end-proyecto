@@ -1,16 +1,69 @@
-import { View, Text } from "react-native"
-import styles from "./styles"
+import { View, Text } from "react-native";
+//import algo que cree tablas bonitas
+import styles from "./styles";
 
 const WeekOverview = () => {
-    let fechaInicio = new Date().toISOString().split('T')[0]
-    let fechaTermino = new Date().toISOString().split('T')[0]
     return (
         <View style={styles.container}>
             <Text style={styles.title}>
                 Resumen Semanal
             </Text>
+            <Text style={styles.subtitle}>
+                Lunes
+            </Text>
             <Text style={styles.text}>
-                {fechaInicio}
+                Entrada
+            </Text>
+            <Text style={styles.text}>
+                Salida
+            </Text>
+            <Text style={styles.subtitle}>
+                Martes
+            </Text>
+            <Text style={styles.text}>
+                Entrada
+            </Text>
+            <Text style={styles.text}>
+                Salida
+            </Text>
+            <Text style={styles.subtitle}>
+                Miércoles
+            </Text>
+            <Text style={styles.text}>
+                Entrada
+            </Text>
+            <Text style={styles.text}>
+                Salida
+            </Text>
+            <Text style={styles.subtitle}>
+                Jueves
+            </Text>
+            <Text style={styles.text}>
+                Entrada
+            </Text>
+            <Text style={styles.text}>
+                Salida
+            </Text>
+            <Text style={styles.subtitle}>
+                Viernes
+            </Text>
+            <Text style={styles.text}>
+                Entrada
+            </Text>
+            <Text style={styles.text}>
+                Salida
+            </Text>
+            <Text style={styles.subtitle}>
+                Sábado
+            </Text>
+            <Text style={styles.text}>
+                Entrada
+            </Text>
+            <Text style={styles.text}>
+                Salida
+            </Text>
+            <Text style={styles.subtitle}>
+                Domingo
             </Text>
         </View>
     )

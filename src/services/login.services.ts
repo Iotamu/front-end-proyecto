@@ -7,7 +7,9 @@ const loginService = async (payload: {email: string; password: string}) => {
     const response = await axios.post(url,payload)
     console.log(JSON.stringify(response))
     const { token, user } = response.data;
-    await AsyncStorage.setItem('token', response.data.token ); 
+    await AsyncStorage.setItem('token', response.data.token );
+    
+    
     console.log('save token storage')
     console.log(token);
     console.log("user");
@@ -24,6 +26,7 @@ const loginService = async (payload: {email: string; password: string}) => {
         role: user.role,
       },
     }
+
   } catch (error: unknown) {
     let errorMessage = 'Ha ocurrido un error en el servicio';
     if (axios.isAxiosError(error)) {

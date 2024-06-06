@@ -11,9 +11,10 @@ import { GradientButton } from "../component/gradient";
 import styles from "./styles";
 
 const loginSchema = Joi.object({
-  email: Joi.string().min(6).max(20),
-  password: Joi.string().min(4).max(16),
-})
+  email: Joi.string().email({ tlds: { allow: false } }),
+  password: Joi.string(),
+});
+
 const Login = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { setUserId: setUserIdStore } = useStore()
@@ -48,19 +49,12 @@ const Login = () => {
   const onLogin = async () => {
     const payload = { email, password };
     const response = await loginService(payload);
-    if (response.status === 201 && response.data) {
-      const { userId, name, lastName, email, role } = response.data;
-      //console.log("Email:", email);
-      //console.log("userID:", userId);
-      //console.log("name:", name);
-      //console.log("lastName:", lastName);
-      //console.log("role:", role);
-      
-      setUserIdStore(userId)
-      setNameStore(name)
-      setlastNameStore(lastName)
-      setEmailStore(email)
-      setRoleStore(role)
+    if (response.status === 201/* && response.data*/) {
+      setUserIdStore(response.data.userId)
+      setNameStore(response.data.name)
+      setlastNameStore(response.data.lastName)
+      setEmailStore(response.data.email)
+      setRoleStore(response.data.role)
       navigation.navigate("Profile");
     }
   };
@@ -82,7 +76,7 @@ const Login = () => {
         <Input
           secureTextEntry
           label="Contraseña"
-          placeholder="••••••"
+          placeholder="••••••••"
           onChangeText={(value: string) => setPassword(value)}
           errorMessage={errorMessagePassword}
         />

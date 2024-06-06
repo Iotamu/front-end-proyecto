@@ -23,6 +23,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#9900ef',
   },
+  subtitle: {
+    fontSize: 20,
+    marginBottom: 5,
+    textAlign: 'center',
+    color: '#9900ef'
+  },
   text: {
     fontSize: 16,
     textAlign: 'center',
