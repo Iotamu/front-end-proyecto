@@ -25,16 +25,16 @@ export function GradientButton(props: GradientButtonProps) {
 
 const styles = StyleSheet.create({
     button: {
-    paddingVertical: 20,
-    paddingHorizontal: 50,
-    width: '100%',
-    alignItems: 'center',
-  },
+        paddingVertical: 20,
+        paddingHorizontal: 50,
+        width: '100%',
+        alignItems: 'center',
+    },
     gradient: {
         paddingVertical: 20,
         paddingHorizontal: 50,
         borderRadius: 10,
-        width: '160%',
+        width: '150%',
     },
     text: {
         backgroundColor: 'transparent',

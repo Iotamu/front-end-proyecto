@@ -8,8 +8,9 @@ import styles from './styles';
 import getToken from '../validation/checkToken';
 import registerScheduleService from '../services/registerSchedule.services';
 import localDate from '../component/localDate';
+import { ModalComponent } from '../component/modalComponent';
 
-const Profile = () => {
+const ProfileUser = () => {
   const { name, lastName, userId, email, role } = useStore();
   console.log(name)
   console.log(lastName)
@@ -20,20 +21,16 @@ const Profile = () => {
   const [fecha, setFecha] = useState();
   const [entradaRegistrada, setEntradaRegistrada] = useState(false);
   const [salidaRegistrada, setSalidaRegistrada] = useState(true);
-  let isAdmin = Boolean(false)
+  const [error, setError] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   //const currDate = new Date().toLocaleTimeString("es-CL", {
   //  timeZone: "America/Santiago",hour12: false});
-
-  if(role == "user"){//CAMBIAR CUANDO SE IMPLEMENTE EL ADMIN
-    isAdmin = true
-  }
 
   const onPressChangePassword = () => {if (navigation) {
       navigation.navigate('ResetPassword');
     }
   };
-
 
   const onPressChangeInfoUser = async () => {
     navigation.navigate('ChangeInfoUser') ; 
@@ -47,7 +44,7 @@ const Profile = () => {
     console.log(fecha)
     const currentDate = new Date().toLocaleDateString();
     console.log(currentDate)
-    const hora= localDate
+    const hora= new Date().toLocaleTimeString("es-CL", {timeZone: "America/Santiago",hour12: false});
     console.log(hora)
     const tipo="entrada"
     console.log(tipo)
@@ -56,14 +53,21 @@ const Profile = () => {
           console.log("try")
           if(userId!==null){
             console.log("userId!==null")
+            console.log("fecha")
+            console.log(fecha)
+            console.log("hora")
+            console.log(hora)
             const response = await registerScheduleService(userId, tipo, fecha, hora);
             if (response.status === 201) {
                  console.log('Entrada registrada');
-                 navigation.navigate('RegisterSchedule', { hora,tipo });
+                 const horaR = hora;
+                 navigation.navigate('RegisterScheduleMessage', { hora,tipo });
                  setSalidaRegistrada(false);
             } else {
                 console.log('Entrada registrada anteriormente');
                 setEntradaRegistrada(true);
+                setError(`Entrada registrada anteriormente`);
+                setModalVisible(true);
             }
           }
         } catch (error) {
@@ -86,11 +90,15 @@ const Profile = () => {
               const response = await registerScheduleService(userId, tipo, fecha, hora);
                 if (response.status === 201) {
                    console.log('Salida registrada');
-                   navigation.navigate('RegisterSchedule', { hora,tipo });
+                   navigation.navigate('RegisterScheduleMessage', { hora,tipo });
               } else {
-                  console.log('Error en la solicitud');
+                  console.log('Salida registrada anteriormente solicitud');
                   setSalidaRegistrada(true);
+                  setError(`Entrada registrada anteriormente`);
+                  setModalVisible(true);
+                  
               }
+
             }
           } catch (error) {
                 console.error('Error :', error);
@@ -105,33 +113,42 @@ const Profile = () => {
       <Text style={styles.title}>
         Bienvenido {role} {name} 
       </Text>
-      <View style={styles.title}>
+      <ModalComponent
+        modalVisible={modalVisible}
+        headerTitle="Error"
+        buttonTitle="Cerrar"
+        onClose={() => setModalVisible(false)}
+        onAction={() => setModalVisible(false)}
+      >
+        <Text style={styles.text}>{error}</Text>
+      </ModalComponent>
+      <View style={[styles.button, styles.registerButton]}>
         <TouchableOpacity onPress={onPressChangeInfoUser}>
-          <Text style={styles.forgot}>Cambiar datos </Text>
+          <Text style={styles.buttonText}>Cambiar datos </Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.title}>
+      <View style={[styles.button, styles.registerButton]}>
         <TouchableOpacity onPress={onPressChangePassword}>
-          <Text style={styles.forgot}>Cambiar contraseña</Text>
+          <Text style={styles.buttonText}>Cambiar contraseña</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.title}>
+      <View style={[styles.button, styles.registerButton]}>
         <TouchableOpacity onPress={onPressRegisterScheduleE} disabled={entradaRegistrada}>
-          <Text style={[styles.forgot, entradaRegistrada && { opacity: 0.5 }]}>Registrar entrada</Text>
+          <Text style={[styles.buttonText, entradaRegistrada && styles.buttonTextDisabled]}>Registrar entrada</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.title}>
+      <View style={[styles.button, styles.registerButton]}>
         <TouchableOpacity onPress={onPressRegisterScheduleS} disabled={salidaRegistrada}>
-          <Text style={[styles.forgot, salidaRegistrada && { opacity: 0.5 }]}>Registrar salida</Text>
+          <Text style={[styles.buttonText, salidaRegistrada && styles.buttonTextDisabled]}>Registrar salida</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.title}>
+      <View style={[styles.button, styles.registerButton]}>
         <TouchableOpacity onPress={onPressWeekOverview}>
-          <Text style={styles.forgot}>Revisar Semana</Text>
+          <Text style={styles.buttonText}>Revisar Semana</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-export default Profile;
+export default ProfileUser;
