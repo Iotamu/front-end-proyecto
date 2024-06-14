@@ -11,23 +11,15 @@ import localDate from '../component/localDate';
 import locationStore from '../stores/locationStore';
 import updateScheduleService from '../services/updateSchedule.service';
 
-const ProfileAdmin = () => {
+const RegisterViews = () => {
   const { name, lastName, userId, email, role } = useStore();
   const {latitude, longitude}=locationStore();
-  console.log(name)
-  console.log(lastName)
-  console.log(userId)
-  console.log(email)
-  console.log(role)
 
   const [fecha, setFecha] = useState();
   const [entradaRegistrada, setEntradaRegistrada] = useState(false);
   const [salidaRegistrada, setSalidaRegistrada] = useState(true);
   let isAdmin = Boolean(false)
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  //const currDate = new Date().toLocaleTimeString("es-CL", {
-  //  timeZone: "America/Santiago",hour12: false});
-
   const onPressChangePassword = () => {if (navigation) {
       navigation.navigate('ResetPassword');
     }
@@ -91,6 +83,11 @@ const ProfileAdmin = () => {
    }
   }
 
+  const onPressUpdateRegister= async () => {
+      navigation.navigate('UpdateScheduleAdmin');
+  }
+
+
   const onPressRegisterScheduleS = async () => {
     const token = await getToken();       
     const fecha = new Date().toISOString().split('T')[0];
@@ -131,18 +128,13 @@ const ProfileAdmin = () => {
         </TouchableOpacity>
       </View>
       <View style={[styles.button, styles.registerButton]}>
-        <TouchableOpacity onPress={onPressRegisterScheduleE} disabled={entradaRegistrada}>
-          <Text style={[styles.buttonText, entradaRegistrada && styles.buttonTextDisabled]}>Registrar entrada</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={[styles.button, styles.registerButton]}>
-        <TouchableOpacity onPress={onPressRegisterScheduleS} disabled={salidaRegistrada}>
-          <Text style={[styles.buttonText, salidaRegistrada && styles.buttonTextDisabled]}>Registrar salida</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={[styles.button, styles.registerButton]}>
         <TouchableOpacity onPress={onPressRegister} disabled={entradaRegistrada}>
           <Text style={[styles.buttonText, entradaRegistrada && styles.buttonTextDisabled]}>Crear registro usuario</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={[styles.button, styles.registerButton]}>
+        <TouchableOpacity onPress={onPressUpdateRegister} disabled={entradaRegistrada}>
+          <Text style={[styles.buttonText, entradaRegistrada && styles.buttonTextDisabled]}>Actualizar un registro de usuario</Text>
         </TouchableOpacity>
       </View>
       <View style={[styles.button, styles.registerButton]}>
@@ -159,4 +151,4 @@ const ProfileAdmin = () => {
   );
 };
 
-export default ProfileAdmin;
+export default RegisterViews;

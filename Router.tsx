@@ -11,7 +11,11 @@ import RequestPassword from "./src/views/requestPassword";
 import RegisterScheduleMessage from "./src/viewsMessage/registerScheduleMessage";
 import WeekOverview from "./src/views/weekOverview";
 import ChangeInfoUser from "./src/views/changeInfoUser";
-
+import GeoLocationViews from './src/views/geoLocationViews';
+import CreateScheduleAdmin from "./src/views/createScheduleAdmin";
+import ChangeScheduleMessage from "./src/viewsMessage/changeScheduleMessage";
+import UpdateScheduleAdmin from "./src/views/updateScheduleAdmin";
+import RegisterViews from './src/views/registerViews';
 
 export type RootStackParamList = {
     Loading: Record<string, string> | undefined;
@@ -25,6 +29,11 @@ export type RootStackParamList = {
     RegisterScheduleMessage: Record<string, string> | undefined;
     WeekOverview: Record<string, string> | undefined;
     ChangeInfoUser: Record<string, string> | undefined;
+    GeoLocationViews: Record<string, string> | undefined;
+    CreateSchedulesAdmin: Record<string, string> | undefined;
+    ChangeScheduleMessage: Record<string, string> | undefined;
+    UpdateScheduleAdmin: Record<string, string> | undefined;
+    RegisterViews: Record<string, string> | undefined;
 };
 
 
@@ -99,6 +108,32 @@ const RouterProvider = () => {
                     options={{ headerShown: true }}
                     name="ChangeInfoUser"
                     component={ChangeInfoUser}
+                ></Stack.Screen>
+                <Stack.Screen
+                    options={{ headerShown: true }}
+                    name="GeoLocationViews"
+                    component={GeoLocationViews}
+                ></Stack.Screen>
+                <Stack.Screen
+                    options={{ headerShown: true }}
+                    name="CreateSchedulesAdmin"
+                    component={CreateScheduleAdmin}
+                ></Stack.Screen>
+                <Stack.Screen
+                    options={{ headerShown: true }}
+                    name="ChangeScheduleMessage"
+                    component={ChangeScheduleMessage}
+                ></Stack.Screen>
+                <Stack.Screen
+                    options={{ headerShown: true }}
+                    name="UpdateScheduleAdmin"
+                    component={UpdateScheduleAdmin}
+                ></Stack.Screen>
+
+                <Stack.Screen
+                    options={{ headerShown: true }}
+                    name="RegisterViews"
+                    component={RegisterViews}
                 ></Stack.Screen>
 
             </Stack.Navigator>

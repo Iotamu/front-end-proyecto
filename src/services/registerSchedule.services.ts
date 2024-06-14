@@ -1,11 +1,11 @@
 import axios, { AxiosError } from "axios";
 import getToken from "../validation/checkToken";
 
-const registerScheduleService = async (userId: number, tipo: string, fecha: string, hora: string) => {
+const registerScheduleService = async (userId: number, tipo: string, fecha: string, hora: string, latitude:string, longitude:string, edit:string) => {
   try {
     const token = await getToken();
     console.log('Token obtenido:', token);
-    const payload = { userId, tipo, fecha, hora };
+    const payload = { userId, tipo, fecha, hora ,latitude ,longitude,edit};
     console.log(payload)
     const url = `http://${process.env.EXPO_PUBLIC_MS_SCHEDULE_URL}api/v1/schedule/create`;
     const response = await axios.post(url, payload, {

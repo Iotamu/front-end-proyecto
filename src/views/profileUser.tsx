@@ -9,15 +9,18 @@ import getToken from '../validation/checkToken';
 import registerScheduleService from '../services/registerSchedule.services';
 import localDate from '../component/localDate';
 import { ModalComponent } from '../component/modalComponent';
+import locationStore from '../stores/locationStore';
+import GeoLocationViews from './geoLocationViews';
+import updateScheduleService from '../services/updateSchedule.service';
 
 const ProfileUser = () => {
   const { name, lastName, userId, email, role } = useStore();
+  const {latitude, longitude}=locationStore();
   console.log(name)
   console.log(lastName)
   console.log(userId)
   console.log(email)
   console.log(role)
-
   const [fecha, setFecha] = useState();
   const [entradaRegistrada, setEntradaRegistrada] = useState(false);
   const [salidaRegistrada, setSalidaRegistrada] = useState(true);
@@ -39,6 +42,7 @@ const ProfileUser = () => {
 
   const onPressRegisterScheduleE = async () => {
     const token = await getToken();    
+    console.log("Register schedule ")  
     console.log(token)   
     const fecha = new Date().toISOString().split('T')[0];
     console.log(fecha)
@@ -46,9 +50,12 @@ const ProfileUser = () => {
     console.log(currentDate)
     const hora= new Date().toLocaleTimeString("es-CL", {timeZone: "America/Santiago",hour12: false});
     console.log(hora)
+    console.log(latitude)
+    console.log(longitude)
     const tipo="entrada"
     console.log(tipo)
     console.log(userId)
+    console.log("antes try")
         try {
           console.log("try")
           if(userId!==null){
@@ -57,7 +64,11 @@ const ProfileUser = () => {
             console.log(fecha)
             console.log("hora")
             console.log(hora)
-            const response = await registerScheduleService(userId, tipo, fecha, hora);
+            const edit ="NO"
+            console.log("no")
+            console.log(latitude)
+            console.log(longitude)
+            const response = await registerScheduleService(userId, tipo, fecha, hora, latitude,longitude,edit);
             if (response.status === 201) {
                  console.log('Entrada registrada');
                  const horaR = hora;
@@ -68,6 +79,7 @@ const ProfileUser = () => {
                 setEntradaRegistrada(true);
                 setError(`Entrada registrada anteriormente`);
                 setModalVisible(true);
+                setSalidaRegistrada(false);
             }
           }
         } catch (error) {
@@ -76,33 +88,63 @@ const ProfileUser = () => {
     }
 
   const onPressWeekOverview = () =>{
-    navigation.navigate('WeekOverview')
+      navigation.navigate('WeekOverview')
   }
 
+  const onPressLocation = () =>{
+      navigation.navigate('GeoLocationViews')
+ 
+  }
+  const onPressRegister = () =>
+      navigation.navigate("CreateSchedulesAdmin")
 
-    const onPressRegisterScheduleS = async () => {
-      const token = await getToken();       
+  const onPressRegisterScheduleS = async () => {
+      const token = await getToken();    
+      console.log(token)   
       const fecha = new Date().toISOString().split('T')[0];
-      const hora=localDate
+      console.log(fecha)
+      const currentDate = new Date().toLocaleDateString();
+      console.log(currentDate)
+      const hora= new Date().toLocaleTimeString("es-CL", {timeZone: "America/Santiago",hour12: false});
+      console.log(hora)
       const tipo="salida"
+      console.log(tipo)
+      console.log(userId)
           try {
+            console.log("try")
             if(userId!=null){
-              const response = await registerScheduleService(userId, tipo, fecha, hora);
+              console.log("try")
+              console.log("userId!==null")
+              console.log("fecha")
+              console.log(fecha)
+              console.log("hora")
+              console.log(hora)
+              const edit="NO";
+              const response = await registerScheduleService(userId, tipo, fecha, hora, latitude, longitude,edit);
                 if (response.status === 201) {
                    console.log('Salida registrada');
                    navigation.navigate('RegisterScheduleMessage', { hora,tipo });
-              } else {
-                  console.log('Salida registrada anteriormente solicitud');
+                } else {
+                  console.log('Salida registrada anteriormente');
                   setSalidaRegistrada(true);
-                  setError(`Entrada registrada anteriormente`);
-                  setModalVisible(true);
-                  
+                  setError(`Salida registrada anteriormente`);
+                  setModalVisible(true);   
               }
-
             }
           } catch (error) {
                 console.error('Error :', error);
         } 
+      }
+
+      const onPressUpdate= async () => {
+        const edit="si"
+        const payload={latitude,longitude,edit}
+        const response = await updateScheduleService(1,payload)
+        const tipo="check"
+        if (response.status === 201) {
+          console.log("checkk update")
+          navigation.navigate('ChangeScheduleMessage', {tipo});
+       }
       }
         
   return (
@@ -147,8 +189,22 @@ const ProfileUser = () => {
           <Text style={styles.buttonText}>Revisar Semana</Text>
         </TouchableOpacity>
       </View>
+      <View style={[styles.button, styles.registerButton]}>
+        <TouchableOpacity onPress={onPressLocation}>
+          <Text style={styles.buttonText}>GeoLocalización</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={[styles.button, styles.registerButton]}>
+        <TouchableOpacity onPress={onPressRegister}>
+          <Text style={styles.buttonText}>Registrar</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={[styles.button, styles.registerButton]}>
+        <TouchableOpacity onPress={onPressUpdate}>
+          <Text style={styles.buttonText}>ActualizarGeo</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
-
 export default ProfileUser;
