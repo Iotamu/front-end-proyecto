@@ -42,6 +42,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     width: '80%'
   },
+  buttonNextPrev: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    fontSize: 14,
+    width: '50%'
+  },
   buttonDisabled: {
     backgroundColor: '#ccc',
   },
