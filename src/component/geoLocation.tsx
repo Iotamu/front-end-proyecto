@@ -6,15 +6,14 @@ import { RootStackParamList } from '../../Router';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { RouteProp, useRoute } from "@react-navigation/native";
+import Loading from '../views/loading';
 
 
-export default function GeoLocationViews() {
+export default function GeoLocation() {
+  const [loading, setLoading] = useState<boolean>(false);
   const {setLatitude: setLatitudeStore, setLongitude:setLongitudeStore } = locationStore()
   const [location, setLocation] = useState<Location.LocationObject | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const route = useRoute<RouteProp<RootStackParamList, 'GeoLocationViews'>>();
-  const tipo = route.params?.tipo;
   useEffect(() => {
     (async () => {
       try {
@@ -23,12 +22,13 @@ export default function GeoLocationViews() {
           setErrorMessage('El permiso fue denegado');
           return;
         }
-
         let location = await Location.getCurrentPositionAsync({});
         setLatitudeStore(location.coords.latitude.toString());
         setLongitudeStore(location.coords.longitude.toString());
         setLocation(location);
-        console.log(location)
+        console.log(location);
+        setLoading(true);
+        
       } catch (error) {
         console.error('Error al obtener la locacion:', error);
         setErrorMessage('Error al obtener la locacion');
@@ -36,33 +36,5 @@ export default function GeoLocationViews() {
     })();
   }, []);
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Location</Text>
-      {errorMessage ? (
-        <Text style={styles.errorMsg}>{errorMessage}</Text>
-      ) : (
-        location && (
-          <View>
-            <Text>Latitude: {location.coords.latitude}</Text>
-            <Text>Longitude: {location.coords.longitude}</Text>
-          </View>
-        )
-      )}
-    </View>
-  );
+  return 
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-  },
-  heading: {
-    fontSize: 24,
-    marginBottom: 10,
-  },
-  errorMsg: {
-    fontSize: 18,
-    color: 'red',
-  },
-});

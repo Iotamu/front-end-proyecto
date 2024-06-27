@@ -14,7 +14,7 @@ import ChangeInfoUser from "./src/views/changeInfoUser";
 import GeoLocationViews from './src/views/geoLocationViews';
 import CreateScheduleAdmin from "./src/views/createScheduleAdmin";
 import ChangeScheduleMessage from "./src/viewsMessage/changeScheduleMessage";
-import UpdateScheduleAdmin from "./src/views/updateScheduleAdmin";
+import UpdateScheduleAdmin from "./src/views/updateScheduleAdmin2";
 import RegisterViews from './src/views/registerViews';
 
 export type RootStackParamList = {
@@ -135,6 +135,7 @@ const RouterProvider = () => {
                     name="RegisterViews"
                     component={RegisterViews}
                 ></Stack.Screen>
+
 
             </Stack.Navigator>
         </NavigationContainer>
