@@ -16,6 +16,7 @@ import CreateScheduleAdmin from "./src/views/createScheduleAdmin";
 import ChangeScheduleMessage from "./src/viewsMessage/changeScheduleMessage";
 import UpdateScheduleAdmin from "./src/views/updateScheduleAdmin";
 import RegisterViews from './src/views/registerViews';
+import WeeklyChartAdmin from "./src/views/weeklyChartAdmin";
 
 export type RootStackParamList = {
     Loading: Record<string, string> | undefined;
@@ -34,6 +35,7 @@ export type RootStackParamList = {
     ChangeScheduleMessage: Record<string, string> | undefined;
     UpdateScheduleAdmin: Record<string, string> | undefined;
     RegisterViews: Record<string, string> | undefined;
+    WeeklyChartAdmin: Record<string,string> | undefined
 };
 
 
@@ -129,13 +131,16 @@ const RouterProvider = () => {
                     name="UpdateScheduleAdmin"
                     component={UpdateScheduleAdmin}
                 ></Stack.Screen>
-
                 <Stack.Screen
                     options={{ headerShown: true }}
                     name="RegisterViews"
                     component={RegisterViews}
                 ></Stack.Screen>
-
+                <Stack.Screen
+                    options={{ headerShown: true }}
+                    name="WeeklyChartAdmin"
+                    component={WeeklyChartAdmin}
+                ></Stack.Screen>
             </Stack.Navigator>
         </NavigationContainer>
     )

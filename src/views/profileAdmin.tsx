@@ -25,8 +25,6 @@ const ProfileAdmin = () => {
   const [salidaRegistrada, setSalidaRegistrada] = useState(true);
   let isAdmin = Boolean(false)
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  //const currDate = new Date().toLocaleTimeString("es-CL", {
-  //  timeZone: "America/Santiago",hour12: false});
 
   const onPressChangePassword = () => {if (navigation) {
       navigation.navigate('ResetPassword');
@@ -40,7 +38,6 @@ const ProfileAdmin = () => {
   const onPressRegister = async () => {
     navigation.navigate('CreateSchedulesAdmin') ; 
   };
-
 
   const onPressRegisterScheduleE = async () => {
     const token = await getToken();    
@@ -76,7 +73,6 @@ const ProfileAdmin = () => {
       } 
     }
   
-
   const onPressWeekOverview = () => {
     navigation.navigate('WeekOverview')
   }
@@ -111,6 +107,10 @@ const ProfileAdmin = () => {
                 console.error('Error :', error);
         } 
       }
+
+  const onPressWeeklyChart = () => {
+    navigation.navigate('WeeklyChartAdmin')
+  }    
         
   return (
     <View style={styles.container}>
@@ -122,7 +122,7 @@ const ProfileAdmin = () => {
       </Text>
       <View style={[styles.button, styles.registerButton]}>
         <TouchableOpacity onPress={onPressChangeInfoUser}>
-          <Text style={styles.buttonText}>Cambiar datos </Text>
+          <Text style={styles.buttonText}>Modificar perfil</Text>
         </TouchableOpacity>
       </View>
       <View style={[styles.button, styles.registerButton]}>
@@ -142,12 +142,17 @@ const ProfileAdmin = () => {
       </View>
       <View style={[styles.button, styles.registerButton]}>
         <TouchableOpacity onPress={onPressRegister} disabled={entradaRegistrada}>
-          <Text style={[styles.buttonText, entradaRegistrada && styles.buttonTextDisabled]}>Crear registro usuario</Text>
+          <Text style={[styles.buttonText, entradaRegistrada && styles.buttonTextDisabled]}>Modificar horarios</Text>
         </TouchableOpacity>
       </View>
       <View style={[styles.button, styles.registerButton]}>
         <TouchableOpacity onPress={onPressWeekOverview}>
-          <Text style={styles.buttonText}>Revisar Semana</Text>
+          <Text style={styles.buttonText}>Horarios semanales</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={[styles.button, styles.registerButton]}>
+        <TouchableOpacity onPress={onPressWeeklyChart}>
+          <Text style={styles.buttonText}>Gráfico Semanal</Text>
         </TouchableOpacity>
       </View>
       <View style={[styles.button, styles.registerButton]}>
