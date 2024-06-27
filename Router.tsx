@@ -16,6 +16,7 @@ import CreateScheduleAdmin from "./src/views/createScheduleAdmin";
 import ChangeScheduleMessage from "./src/viewsMessage/changeScheduleMessage";
 import UpdateScheduleAdmin from "./src/views/updateScheduleAdmin";
 import RegisterViews from './src/views/registerViews';
+import AdminDashboard from './src/views/admindashboard'; // Importar AdminDashboard
 
 export type RootStackParamList = {
     Loading: Record<string, string> | undefined;
@@ -34,8 +35,8 @@ export type RootStackParamList = {
     ChangeScheduleMessage: Record<string, string> | undefined;
     UpdateScheduleAdmin: Record<string, string> | undefined;
     RegisterViews: Record<string, string> | undefined;
+    AdminDashboard: Record<string, string> | undefined; // Agregar AdminDashboard
 };
-
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -134,6 +135,12 @@ const RouterProvider = () => {
                     options={{ headerShown: true }}
                     name="RegisterViews"
                     component={RegisterViews}
+                ></Stack.Screen>
+
+                <Stack.Screen
+                    options={{ headerShown: true }}
+                    name="AdminDashboard"
+                    component={AdminDashboard}
                 ></Stack.Screen>
 
             </Stack.Navigator>
