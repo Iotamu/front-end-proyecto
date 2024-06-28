@@ -38,7 +38,7 @@ const WeekOverview = () => {
         //Al dia actual del mes (ej:14) se le resta el día de la semana(ej: jueves=4) para iniciar desde el principio de la semana (ej: 14 - 4 = 10 => lunes es 10)
         currentDate = new Date
         
-        mondayNum = currentDate.getDate() - currentDate.getDay() + value
+        mondayNum = currentDate.getDate() - currentDate.getDay() + 1 + value
         tuesdayNum = mondayNum + 1
         wednesdayNum = mondayNum + 2
         thursdayNum = mondayNum + 3

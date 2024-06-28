@@ -44,10 +44,11 @@ const styles = StyleSheet.create({
   },
   buttonNextPrev: {
     paddingVertical: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: 35,
     borderRadius: 10,
     fontSize: 14,
-    width: '50%'
+    width: '40%',
+    alignItems: 'center'
   },
   buttonDisabled: {
     backgroundColor: '#ccc',
@@ -95,6 +96,15 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly'
+  },
+  yAxisContainer: {
+    flexDirection: 'row',
+    height: 300,
+    paddingVertical: 16
+  },
+  chartContainer: {
+    flex: 1,
+    marginLeft: 10
   }
 })
 
