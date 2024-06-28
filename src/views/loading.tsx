@@ -22,7 +22,7 @@ const Loading = () => {
     getHealthcheck()
     const timer = setTimeout(() => {
       setIsVisible(false);
-    }, 4000); //4 segundos
+    }, 30000); //4 segundos
     return () => clearTimeout(timer);
     
   }, []);

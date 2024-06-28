@@ -55,7 +55,12 @@ const Login = () => {
       setlastNameStore(response.data.lastName)
       setEmailStore(response.data.email)
       setRoleStore(response.data.role)
-      navigation.navigate("Profile");
+      if(response.data.role==="user"){
+        navigation.navigate("ProfileUser");
+      }
+      else{
+        navigation.navigate("ProfileAdmin")
+      }
     }
   };
 

@@ -6,11 +6,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: '10%',
+    paddingHorizontal: '5%',
     paddingVertical: '5%',
   },
   inputContainer: {
-    width: "100%",
+    width: '100%',
     marginBottom: 20,
   },
   input: {
@@ -40,8 +40,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 50,
     borderRadius: 10,
     marginBottom: 20,
-    elevation: 3,
     width: '80%'
+  },
+  buttonNextPrev: {
+    paddingVertical: 5,
+    paddingHorizontal: 35,
+    borderRadius: 10,
+    fontSize: 14,
+    width: '40%',
+    alignItems: 'center'
+  },
+  buttonDisabled: {
+    backgroundColor: '#ccc',
+  },
+  buttonTextDisabled: {
+    color: '#888',
   },
   buttonText: {
     color: '#8a2be2',
@@ -55,10 +68,11 @@ const styles = StyleSheet.create({
     borderColor: '#9900ef',
   },
   backgroundImage: {
-    alignSelf: 'center',
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
+    width: '120%',
+    height: '100%',
   },
   content: {
     flex: 1,
@@ -71,6 +85,27 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "blue",
   },
+  containerError: {
+    backgroundColor: 'red',
+    padding: 40,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  vertical: {
+    marginBottom: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
+  },
+  yAxisContainer: {
+    flexDirection: 'row',
+    height: 300,
+    paddingVertical: 16
+  },
+  chartContainer: {
+    flex: 1,
+    marginLeft: 10
+  }
 })
 
 export default styles;

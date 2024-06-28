@@ -18,7 +18,7 @@ interface updatePayload {
 
 const ChangeInfoUser = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const { name: nameStore, lastName: lastNameStore, email: emailStore, userId } = useStore();
+  const { name: nameStore, lastName: lastNameStore, email: emailStore, userId, role:roleStore } = useStore();
   const [name, setName] = useState<string>(nameStore);
   const [lastName, setLastName] = useState<string>(lastNameStore);
   const [email, setEmail] = useState<string>(emailStore);
@@ -48,9 +48,14 @@ const ChangeInfoUser = () => {
       if (Object.keys(payload).length > 0) {
         const response = await updateService(userId!, payload);
   
-        if (response.status === 200) {
+        if (response.status === 201) {
           console.log("Usuario actualizado");
-          navigation.navigate("Profile");
+          if(roleStore==="user"){
+            navigation.navigate("ProfileUser");
+          }
+          else{
+            navigation.navigate("ProfileAdmin")
+          }
         } else {
           console.log("Error en la actualización");
         }

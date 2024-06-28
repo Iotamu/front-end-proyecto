@@ -5,10 +5,12 @@ import { GradientButton } from '../component/gradient';
 import { RootStackParamList } from '../../Router';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import styles from './styles';
+import GeoLocationViews from './geoLocationViews';
 
 const Home = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [showLocation, setShowLocation] = useState<boolean>(false);
 
   const onAccess = () => {
     setLoading(true);
@@ -21,6 +23,9 @@ const Home = () => {
     console.log('Register...');
     navigation.navigate('Register');
   }
+  const onGeoLocation = () => {
+    setShowLocation(true);
+  }
 
   return (
     <View style={styles.container}>
@@ -31,7 +36,11 @@ const Home = () => {
           <TouchableOpacity onPress={onRegister} style={[styles.button, styles.registerButton]}>
             <Text style={styles.buttonText}>Crear una cuenta</Text>
           </TouchableOpacity>
-          {loading && <ActivityIndicator size="large" color="#9900ef" />}
+          <TouchableOpacity onPress={onGeoLocation} style={[styles.button, styles.registerButton]}>
+            <Text style={styles.buttonText}>obtener localizacion</Text>
+          </TouchableOpacity>
+          {loading && <ActivityIndicator size="large" color="#9900ef" />}{}
+          {showLocation && <GeoLocationViews />}{}
         </View>
       </ImageBackground>
     </View>
