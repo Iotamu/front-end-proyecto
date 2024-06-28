@@ -111,6 +111,10 @@ const ProfileAdmin = () => {
   const onPressWeeklyChart = () => {
     navigation.navigate('WeeklyChartAdmin')
   }    
+
+  const onPressYearlyChart = () => {
+    navigation.navigate('YearlyChartAdmin')
+  }
         
   return (
     <View style={styles.container}>
@@ -153,6 +157,11 @@ const ProfileAdmin = () => {
       <View style={[styles.button, styles.registerButton]}>
         <TouchableOpacity onPress={onPressWeeklyChart}>
           <Text style={styles.buttonText}>Gráfico Semanal</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={[styles.button, styles.registerButton]}>
+        <TouchableOpacity onPress={onPressYearlyChart}>
+          <Text style={styles.buttonText}>Gráfico Anual</Text>
         </TouchableOpacity>
       </View>
       <View style={[styles.button, styles.registerButton]}>

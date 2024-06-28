@@ -1,10 +1,9 @@
 import { Text, View } from "react-native"
 import RNPickerSelect from 'react-native-picker-select'
 import styles from "./styles"
-import { Button, Divider, Input } from "react-native-elements"
+import { Button, Divider} from "react-native-elements"
 import { useEffect, useState } from "react"
 import weeklyChartAdminServices from "../services/weeklyChartAdmin.services"
-import SimpleBarChart from "../component/barChart"
 import useStore from "../stores/useStore"
 import fetchUsersServices from "../services/fetchUsers.services"
 import { GradientButton } from "../component/gradient"
@@ -133,11 +132,6 @@ const WeeklyChartAdmin = () => {
         setFriValue(0)
         setSatValue(0)
         setSunValue(0)
-    }
-
-    const updateBarChart = () => {
-        barData = data.map(item => item.value)
-        labels = data.map(item => item.day)
     }
 
     return (
