@@ -6,6 +6,7 @@ import { RootStackParamList } from '../../Router';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import styles from './styles';
 import GeoLocationViews from './geoLocationViews';
+import { Button, Divider } from 'react-native-elements';
 
 const Home = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -32,14 +33,21 @@ const Home = () => {
       <ImageBackground source={require('./background2.png')} style={styles.backgroundImage}>
         <View style={styles.content}>
           <Text style={styles.title}>¡Bienvenido(a)!</Text>
-          <GradientButton onPress={onAccess} style={styles.button} text="Acceder" />
+          {/*<GradientButton onPress={onAccess} style={styles.button} text="Acceder" />*/}
+          <Button
+            onPress={onAccess}
+            type='solid'
+            containerStyle={styles.loginButton}
+            title={"Acceder"}
+            disabled={!showLocation}
+          ></Button>
           <TouchableOpacity onPress={onRegister} style={[styles.button, styles.registerButton]}>
             <Text style={styles.buttonText}>Crear una cuenta</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={onGeoLocation} style={[styles.button, styles.registerButton]}>
             <Text style={styles.buttonText}>obtener localizacion</Text>
           </TouchableOpacity>
-          {loading && <ActivityIndicator size="large" color="#9900ef" />}{}
+          {/*loading && <ActivityIndicator size="large" color="#9900ef" />*/}{}
           {showLocation && <GeoLocationViews />}{}
         </View>
       </ImageBackground>

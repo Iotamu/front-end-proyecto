@@ -39,7 +39,6 @@ const ProfileUser = () => {
     navigation.navigate('ChangeInfoUser') ; 
   }
 
-
   const onPressRegisterScheduleE = async () => {
     const token = await getToken();    
     console.log("Register schedule ")  
@@ -91,13 +90,6 @@ const ProfileUser = () => {
       navigation.navigate('WeekOverview')
   }
 
-  const onPressLocation = () =>{
-      navigation.navigate('GeoLocationViews')
- 
-  }
-  const onPressRegister = () =>
-      navigation.navigate("CreateSchedulesAdmin")
-
   const onPressRegisterScheduleS = async () => {
       const token = await getToken();    
       console.log(token)   
@@ -135,7 +127,7 @@ const ProfileUser = () => {
                 console.error('Error :', error);
         } 
       }
-
+/*
       const onPressUpdate= async () => {
         const edit="si"
         const payload={latitude,longitude,edit}
@@ -146,7 +138,7 @@ const ProfileUser = () => {
           navigation.navigate('ChangeScheduleMessage', {tipo});
        }
       }
-        
+*/    
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -189,6 +181,7 @@ const ProfileUser = () => {
           <Text style={styles.buttonText}>Revisar Semana</Text>
         </TouchableOpacity>
       </View>
+      {/*
       <View style={[styles.button, styles.registerButton]}>
         <TouchableOpacity onPress={onPressLocation}>
           <Text style={styles.buttonText}>GeoLocalización</Text>
@@ -204,6 +197,7 @@ const ProfileUser = () => {
           <Text style={styles.buttonText}>ActualizarGeo</Text>
         </TouchableOpacity>
       </View>
+      */}
     </View>
   );
 };

@@ -5,6 +5,7 @@ import getWeekUser from "../services/getWeekUser.services";
 import useStore from "../stores/useStore";
 import { useState, useEffect } from "react";
 import { GradientButton } from "../component/gradient";
+import { Divider } from "react-native-elements";
 
 const WeekOverview = () => {
     const { name, lastName, userId, email, role } = useStore();
@@ -86,7 +87,7 @@ const WeekOverview = () => {
         changeWeek(interval)
         const { data, status } = await getWeekUser(userId,monday,sunday)
         if (status === 200 && data) {
-            for(var i=0;i<14;i++){ //Ciclo for que muestra los horarios de entrada y salida de cada dia
+            for(var i=0;i<data.length;i++){ //Ciclo for que muestra los horarios de entrada y salida de cada dia
                 if(data[i].fecha.split('T')[0] === monday){//Si hay registro de dia "lunes"...
                     if(data[i].tipo === "entrada"){// si es registro de entrada...
                         setLunesE(data[i].hora)
@@ -145,8 +146,16 @@ const WeekOverview = () => {
             <Text style={styles.title}>Resumen Semanal</Text>
             <Text style={styles.text}>Semana: {interval/7}, desde {screenMonday} hasta {screenSunday}</Text>
             {/*<GradientButton onPress={onRefresh} text="Refrescar" style={styles.button} />*/}
-            <GradientButton onPress={nextInterval} text="Siguiente" style={styles.buttonNextPrev} />
-            <GradientButton onPress={previousInterval} text="Anterior" style={styles.buttonNextPrev} />
+            <View style={styles.vertical}>
+                <Text style={{paddingRight: 25}}>Semana anterior</Text>
+                <Divider orientation="vertical"></Divider>
+                <Text style={{paddingLeft: 25}}>Semana siguiente</Text>
+            </View>
+            <View style={styles.vertical}>
+                <GradientButton onPress={previousInterval} text="<" style={styles.buttonNextPrev}/>
+                <Divider orientation="vertical"></Divider>
+                <GradientButton onPress={nextInterval} text=">" style={styles.buttonNextPrev}/>
+            </View>
             <Text style={styles.subtitle}>Lunes</Text>
             <Text style={styles.text}>Entrada: {lunesE}</Text>
             <Text style={styles.text}>Salida {lunesS}</Text>

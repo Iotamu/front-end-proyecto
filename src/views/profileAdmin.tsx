@@ -36,7 +36,7 @@ const ProfileAdmin = () => {
   };
 
   const onPressRegister = async () => {
-    navigation.navigate('CreateSchedulesAdmin') ; 
+    navigation.navigate('UpdateScheduleAdmin') ; 
   };
 
   const onPressRegisterScheduleE = async () => {
@@ -76,7 +76,7 @@ const ProfileAdmin = () => {
   const onPressWeekOverview = () => {
     navigation.navigate('WeekOverview')
   }
-  
+/*  
   const onPressUpdate= async () => {
     const payload={latitude,longitude}
     const response = await updateScheduleService(1,payload)
@@ -86,7 +86,7 @@ const ProfileAdmin = () => {
       navigation.navigate('ChangeScheduleMessage', {tipo});
    }
   }
-
+*/
   const onPressRegisterScheduleS = async () => {
     const token = await getToken();       
     const fecha = new Date().toISOString().split('T')[0];
@@ -145,7 +145,7 @@ const ProfileAdmin = () => {
         </TouchableOpacity>
       </View>
       <View style={[styles.button, styles.registerButton]}>
-        <TouchableOpacity onPress={onPressRegister} disabled={entradaRegistrada}>
+        <TouchableOpacity onPress={onPressRegister}>
           <Text style={[styles.buttonText, entradaRegistrada && styles.buttonTextDisabled]}>Modificar horarios</Text>
         </TouchableOpacity>
       </View>
@@ -164,11 +164,13 @@ const ProfileAdmin = () => {
           <Text style={styles.buttonText}>Gráfico Anual</Text>
         </TouchableOpacity>
       </View>
+      {/*
       <View style={[styles.button, styles.registerButton]}>
         <TouchableOpacity onPress={onPressUpdate}>
           <Text style={styles.buttonText}>ActualizarGeo</Text>
         </TouchableOpacity>
       </View>
+      */}
     </View>
   );
 };
