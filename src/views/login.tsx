@@ -3,12 +3,15 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import Joi from "joi";
+import Joi, { number } from "joi";
 import useStore from "../stores/useStore";
 import loginService from "../services/login.services";
 import { RootStackParamList } from "../../Router";
 import { GradientButton } from "../component/gradient";
 import styles from "./styles";
+import calculateHoursService from "../services/calculateHours.services";
+import { validateEmail } from "../validation/validationFunctions";
+import { Alert } from "react-native";
 
 const loginSchema = Joi.object({
   email: Joi.string().email({ tlds: { allow: false } }),
@@ -16,6 +19,7 @@ const loginSchema = Joi.object({
 });
 
 const Login = () => {
+  
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { setUserId: setUserIdStore } = useStore()
   const { setName: setNameStore } = useStore()
@@ -47,6 +51,19 @@ const Login = () => {
   }, [email, password]);
 
   const onLogin = async () => {
+    if(email===""){
+      Alert.alert('El email no puede estar vacío')
+      return
+    }
+    if(!validateEmail(email)){
+       Alert.alert('El email no tiene formato valido')
+       return
+    }
+    if(password===""){
+      Alert.alert('La contraseña no puede estar vacía')
+    }
+
+
     const payload = { email, password };
     const response = await loginService(payload);
     if (response.status === 201/* && response.data*/) {
@@ -61,6 +78,10 @@ const Login = () => {
       else{
         navigation.navigate("ProfileAdmin")
       }
+    }
+    else{
+      Alert.alert('Error al ingresar credenciales')
+      
     }
   };
 

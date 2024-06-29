@@ -39,8 +39,13 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 50,
     borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 10,
     width: '80%'
+  },
+  loginButton:{
+    paddingVertical: 20,
+    paddingHorizontal: 50,
+    width:'100%',
   },
   buttonNextPrev: {
     paddingVertical: 5,
@@ -96,6 +101,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly'
+  },
+  horizontal: {
+    marginBottom:10
   },
   yAxisContainer: {
     flexDirection: 'row',
