@@ -87,10 +87,6 @@ const UpdateScheduleAdmin = () => {
     }
   };
 
-  const onPressLocation = () => {
-    navigation.navigate('GeoLocationViews');
-  };
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Registrando horario</Text>
@@ -113,11 +109,6 @@ const UpdateScheduleAdmin = () => {
         value={tipo}
         placeholder="Tipo"
       />
-      <View style={[styles.button, styles.registerButton]}>
-        <TouchableOpacity onPress={onPressLocation}>
-          <Text style={styles.buttonText}>GeoLocalización</Text>
-        </TouchableOpacity>
-      </View>
       <GradientButton
         onPress={onClickButton}
         text="Actualizar"

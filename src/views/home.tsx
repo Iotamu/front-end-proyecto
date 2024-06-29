@@ -11,7 +11,8 @@ import { Button, Divider } from 'react-native-elements';
 const Home = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [loading, setLoading] = useState<boolean>(false);
-  const [showLocation, setShowLocation] = useState<boolean>(false);
+  const [showLocation, setShowLocation] = useState<boolean>(false);  
+
 
   const onAccess = () => {
     setLoading(true);

@@ -14,6 +14,7 @@ export default function GeoLocationViews() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList, 'GeoLocationViews'>>();
+  
   const tipo = route.params?.tipo;
   useEffect(() => {
     (async () => {
@@ -29,6 +30,7 @@ export default function GeoLocationViews() {
         setLongitudeStore(location.coords.longitude.toString());
         setLocation(location);
         console.log(location)
+
       } catch (error) {
         console.error('Error al obtener la locacion:', error);
         setErrorMessage('Error al obtener la locacion');

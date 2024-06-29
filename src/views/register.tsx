@@ -8,6 +8,7 @@ import registerService from "../services/register.services";
 import { GradientButton } from "../component/gradient";
 import styles from "./styles";
 import Joi from "joi";
+import { Alert } from "react-native";
 
 type Form = {
   name: string;
@@ -107,6 +108,9 @@ const Register = () => {
     if(valid){
       const payload = {name, lastName, email, password} 
       const response = await registerService(payload)
+      
+      Alert.alert('Usuario registrado')
+      
       if(response.status === 201){
         console.log("Registro exitoso, nuevo usuario agregado")
         navigation.navigate("Login");

@@ -12,6 +12,7 @@ import locationStore from '../stores/locationStore';
 import updateScheduleService from '../services/updateSchedule.service';
 
 const ProfileAdmin = () => {
+  
   const { name, lastName, userId, email, role } = useStore();
   const {latitude, longitude}=locationStore();
   console.log(name)
